@@ -1,0 +1,88 @@
+hey its wednesday today!!! have a nice day
+declare
+vename varchar2(20);
+vsal emp.sal%type;
+begin
+vename:='&name1';
+select sal into vsal from emp where first_name=vename;
+dbms_output.put_line(vsal);
+end;
+create or replace procedure proce1
+as
+vename date;
+vsal emp.sal%type;
+begin
+select sal into vsal from emp where first_name='Valli';
+if(vsal<5000) then
+proce1;
+end if;
+create or replace procedure proce3
+(pename varchar2,vsd number)
+as
+vsal emp.sal%type;
+begin
+select sal into vsal from emp where first_name=pename;
+dbms_output.put_line('old sal '||vsal);
+if(vsal<8000) then
+vsal:=vsal+vsd;
+dbms_output.put_line('new sal '||vsal);
+end if;
+end;
+create or replace procedure out_demo(pdno number,ptot out number)
+as
+begin
+select count(emp_id) into ptot from emp where dept_id=pdno;
+end;
+
+
+create or replace function cube_fun(a number)
+  return number
+  as
+  begin
+   return a*a*a;
+    end;
+
+
+create or replace function emp_no(c number)
+return c
+as 
+begin
+select count(dept_id) into c from emp;
+return c;
+end;
+
+
+
+declare
+a number(10,2);
+b number(10,2);
+begin
+a:=2;
+b:=a/0;
+dbms_output.put_line(b);
+exception
+when zero_divide then
+dbms_output.put_line('Divide by zer exception');
+end;
+
+
+
+declare
+vsal number(10,2);
+lowsal exception;
+begin
+select sal into vsal from emp where first_name='Valli';
+if vsal<30000 then
+raise lowsal;
+end if;
+exception
+when lowsal then
+dbms_output.put_line('the sal is low');
+end;
+CREATE OR REPLACE TRIGGER TR1
+BEFORE INSERT ON EMP2
+BEGIN
+DBMS_OUTPUT.PUT_LINE('THIS IS INSERT TRIGGER');
+ENDS;
+
+
